@@ -23,7 +23,17 @@
   <div ng-controller="mainController">
       <h3>Validating Number Range</h3>
 
-      <label>Number From:
+
+      <input type="number"
+               ng-model="numberValue1"
+               operator="<="
+               compare-to="numberValue2"/>
+      <input type="number"
+               ng-model="numberValue2"
+               operator="=="
+               compare-to="numberValue1"/>
+
+            <label>Number From:
         <input type="number"
                ng-model="numberValue1"
                less-then="numberValue2"/>

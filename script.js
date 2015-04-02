@@ -1,4 +1,35 @@
 angular.module("mainModule", [])
+  .directive('compareTo', function() {
+    return {
+      require: 'ngModel',
+      scope: {
+        operator: '@',
+        compareTo:'='
+      },
+      link: function(scope, elem, attr, ngModel) {
+        function validate(value,compareValue){
+          compareValue = compareValue || scope.compareTo;
+          var valid = eval(value + scope.operator + compareValue);
+          console.log(valid)
+          ngModel.$setValidity('compareTo', valid);
+          return value; 
+        }
+
+        //For DOM -> model validation
+        ngModel.$parsers.push(validate);
+
+        // For model -> DOM validation
+        ngModel.$formatters.push(validate);
+
+        // For greaterThen change -> data validation
+        scope.$watch('compareTo', function(val) {
+          if (val!==undefined) {
+            validate(+ngModel.$viewValue,val);
+          }
+        })
+      }
+    };
+  })
   .directive('greaterThan', function() {
     return {
       require: 'ngModel',
@@ -6,26 +37,23 @@ angular.module("mainModule", [])
         greaterThan: '='
       },
       link: function(scope, elem, attr, ngModel) {
-        // var blacklist = attr.blacklist.split(',');
-        console.log(ngModel)
-          //For DOM -> model validation
-        ngModel.$parsers.push(function(value) {
-          var valid = +value > scope.greaterThan;
+        function validate(value,compareValue){
+          compareValue = compareValue || scope.greaterThan;
+          var valid = eval(value + '>' + compareValue);
           ngModel.$setValidity('greaterThan', valid);
-          // return valid ? value : undefined;
-          return value;
-        });
+          return value; 
+        }
+
+        //For DOM -> model validation
+        ngModel.$parsers.push(validate);
 
         // For model -> DOM validation
-        ngModel.$formatters.push(function(value) {
-          ngModel.$setValidity('greaterThan', +value > scope.greaterThan);
-          return value;
-        });
+        ngModel.$formatters.push(validate);
 
         // For greaterThen change -> data validation
         scope.$watch('greaterThan', function(val) {
-          if (val) {
-            ngModel.$setValidity('greaterThan', +ngModel.$viewValue > val);
+          if (val!==undefined) {
+            validate(+ngModel.$viewValue,val);
           }
         })
       }
