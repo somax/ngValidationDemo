@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AngularJS Validation Demo</title>
+  <script src="angular.js"></script>
+  <script src="script.js"></script>
+
+  <style>
+    .ng-valid
+    {
+      border: solid green 3px;
+    }
+
+    .ng-invalid
+    {
+      border: solid red 3px;
+    }
+
+  </style>
+</head>
+
+<body ng-app="mainModule">
+  <div ng-controller="mainController">
+      <h3>Validating Number Range</h3>
+
+      <label>Number From:
+        <input type="number"
+               ng-model="numberValue1"
+               less-then="numberValue2"/>
+      </label>
+      <label>to:
+      <input type="number"
+               greater-than="numberValue1"
+               ng-model="numberValue2"
+               />
+      </label><br />
+      <strong>Value:</strong> {{numberValue1}}《 {{numberValue2}}<br />
+      <br />
+      
+    </div>
+  </div>
+</body>
+</html>
