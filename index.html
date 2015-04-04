@@ -15,37 +15,106 @@
     {
       border: solid red 3px;
     }
+    form{
+      padding: 20px
+    }
+    form:before{
+      content: "FORM";
+      position: absolute;
+      top: 0;
+      background: white;
+      padding: 5px;
+      color: grey;
+    }
 
   </style>
 </head>
 
 <body ng-app="mainModule">
   <div ng-controller="mainController">
-      <h3>Validating Number Range</h3>
+  <form name="demoForm">
+      <h1>Validating Number Compare Demo</h1>
 
+      <h3>number1: {{numberValue1}} <br/> number2: {{numberValue2}}</h3>
 
-      <input type="number"
+      <h3>Compare To:</h3>
+
+      <input name="number1" type="number"
                ng-model="numberValue1"
                operator="<="
                compare-to="numberValue2"/>
-      <input type="number"
+
+      &lt;= number2 ({{numberValue2}}) - .$error:{{demoForm.number1.$error}} - .$valid: {{demoForm.number1.$valid}}
+      <br/>
+
+      <input name="number2" type="number"
                ng-model="numberValue2"
+               operator=">="
+               compare-to="numberValue1"/>
+               &gt;= number1 ({{numberValue1}}) - .$error:{{demoForm.number2.$error}} - .$valid: {{demoForm.number2.$valid}}
+
+      <br>
+      <input type="number"
+               ng-model="numberValue3"
                operator="=="
                compare-to="numberValue1"/>
+               == number1 ({{numberValue1}})
+      <br>
+      <input type="number"
+               ng-model="numberValue4"
+               operator="!="
+               compare-to="numberValue1"/>
+               != number1 ({{numberValue1}})
+      <br>
+      <input type="number"
+               ng-model="numberValue4"
+               operator=">"
+               compare-to="200"/>
+               &gt; 200
+      <br>
+      <input type="number"
+               ng-model="numberValue5"
+               operator="!="
+               compare-to="200"/>
+               != 200
 
-            <label>Number From:
+
+      <h3>Less Then:</h3>
+
         <input type="number"
                ng-model="numberValue1"
-               less-then="numberValue2"/>
-      </label>
-      <label>to:
+               less-then="numberValue2"
+               /> &lt; number2 ({{numberValue2}})
+        <br/>
+        <input type="number"
+               ng-model="numberValue6"
+               less-then="100"
+               /> &lt; 100
+
+      <h3>Greater Then:</h3>
+
       <input type="number"
                greater-than="numberValue1"
                ng-model="numberValue2"
-               />
-      </label><br />
-      <strong>Value:</strong> {{numberValue1}}《 {{numberValue2}}<br />
-      <br />
+               /> &gt; number1 ({{numberValue1}})
+      <br/>
+      <input type="number"
+               greater-than="200"
+               ng-model="numberValue7"
+               /> &gt; 200
+
+      <h3>max</h3>
+      <input type="number"
+               max="200"
+               ng-model="numberValue8"
+               /> max 200
+
+      <h3>min</h3>
+      <input type="number"
+               min="200"
+               ng-model="numberValue9"
+               /> min 200
+    </form>
       
     </div>
   </div>

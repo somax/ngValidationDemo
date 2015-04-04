@@ -92,5 +92,8 @@ angular.module("mainModule", [])
   .controller("mainController", function($scope) {
     $scope.numberValue1 = 290;
     $scope.numberValue2 = 300;
+    for (var i = 3; i < 10; i++) {
+      $scope['numberValue'+i]=200;
+    };
 
   });
